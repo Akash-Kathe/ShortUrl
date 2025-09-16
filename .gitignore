@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+
+# Production build output
+build/
+
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache folder
+.npm
+
+# Coverage reports
+coverage/
+
+# Testing and debugging
+jest/
+
+# Miscellaneous
+*.lock
