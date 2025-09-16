@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Document</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+       
+    </head>
+    <body>
+     <div class="Container">
+       <h1> URL Shortner App</h1>
+       <form id="Shorturlform">
+        <div>
+            <label for="Shorturl">Enter URL</label>
+            <input type="url" name="Shorturl" id="Divurl" required>
+        </div>
+         <div>
+            <label for="Shorturl">Enter Short Code</label>
+            <input type="text" name="shortcode" id="divshortcode" required>
+        </div>
+        <button type="submit">Submit long URL </button>
+
+       </form>
+       <h2>shortend URL's</h2>
+       <ul id="shortendurl"></ul>
+     </div>
+     <script>
+        document.getElementById('Shorturlform').addEventListener('submit',async(event)=>{     //'submit' is like a event whic we take from above id or name or type it can be anythinng
+        debugger;    
+        event.preventDefault(); // default submit na ho isliye lagana padta hai form ko
+            const formdata = new FormData(event.target); // FormData is a constructor which has multiple methods which can be use to deal with form data
+            // console.log(formdata.get('Shorturl'));  // key kuch bhi dal do name  div ka uska jo bhi value hoga vo mil jayega  is case me user ka long url milega
+            const userlongurl = formdata.get('Shorturl');
+            const UserShortcode =formdata.get('shortcode');
+            // call api for node 
+            try {
+                // const responce =await fetch("/Shorturl") agr get method hai to this is sufficient but for post 
+
+                // post k liye ek object bhejna padega with some key nd values like 
+
+                //json.stringify is sue to convert objet or value into the JSON formate
+                const resfromserver = await fetch("/Shorturl",{
+                  method: "POST",
+                  headers :{"Content-Type":"application/json"},
+                  body:JSON.stringify({userlongurl,UserShortcode})
+                });
+                if(resfromserver.ok){
+                    alert("Submit succesfully........");
+                    event.target.reset();
+                }else{
+                    const errormsg= await resfromserver.text();
+                    alert(errormsg);
+                }
+
+            } catch (error) {
+                console.log("in catch of Api call with error - ",error);
+            }
+
+        });
+     </script>
+    </body>
+</html>
